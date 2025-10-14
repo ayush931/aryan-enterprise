@@ -5,9 +5,78 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Building2, Factory, Cog, Package, ShieldCheck, Zap, Phone, Mail, MapPin, Menu, X, ChevronRight, Settings, Wrench, Box } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useToast } from '@/hooks/use-toast';
+import Image from 'next/image';
+import logo from '../images/aryaLogo.png';
+import footerLogo from '../images/footer.png';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { toast } = useToast();
+
+  const feedbackSchema = z.object({
+    name: z.string().min(2, 'Name is required'),
+    email: z.string().email('Enter a valid email'),
+    phone: z
+      .string()
+      .optional()
+      .refine(
+        (val) => !val || /^\+?[0-9\s\-()]{7,20}$/.test(val),
+        'Enter a valid phone number'
+      ),
+    rating: z.enum(['1', '2', '3', '4', '5'], {
+      required_error: 'Please select a rating',
+    }),
+    message: z.string().min(10, 'Please provide more details (min 10 chars)'),
+  });
+
+  type FeedbackValues = z.infer<typeof feedbackSchema>;
+
+  const form = useForm<FeedbackValues>({
+    resolver: zodResolver(feedbackSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      rating: undefined as unknown as FeedbackValues['rating'],
+      message: '',
+    },
+  });
+
+  const [submitting, setSubmitting] = useState(false);
+  const onSubmit = async (values: FeedbackValues) => {
+    try {
+      setSubmitting(true);
+      const res = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body?.error || 'Failed to send feedback');
+      }
+      toast({
+        title: 'Thank you for your feedback!',
+        description: 'We appreciate you taking the time to help us improve.',
+      });
+      form.reset();
+    } catch (e: any) {
+      toast({
+        title: 'Could not send feedback',
+        description: e?.message || 'Please try again later.',
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -22,14 +91,8 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/70 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <Building2 className="h-8 w-8 text-blue-600" />
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                ARYAN ENTERPRISES
-              </span>
-            </div>
-
+          <div className="flex justify-between items-center h-20">
+            <Image src={logo} alt='headerLogo' height={10} width={100} />
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-blue-600 transition-colors">
@@ -43,6 +106,9 @@ export default function Home() {
               </button>
               <button onClick={() => scrollToSection('services')} className="text-gray-700 hover:text-blue-600 transition-colors">
                 Services
+              </button>
+              <button onClick={() => scrollToSection('feedback')} className="text-gray-700 hover:text-blue-600 transition-colors">
+                Feedback
               </button>
               <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-blue-600 transition-colors">
                 Contact
@@ -74,6 +140,9 @@ export default function Home() {
               </button>
               <button onClick={() => scrollToSection('services')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
                 Services
+              </button>
+              <button onClick={() => scrollToSection('feedback')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                Feedback
               </button>
               <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
                 Contact
@@ -146,7 +215,7 @@ export default function Home() {
                   <span className="font-semibold text-gray-900">ARYAN ENTERPRISES</span> is an innovative solutions provider in various industrial segments including RMC plants, Cement, Fly ash, Micro Silica, GGBFS handling, Aggregate & Sand handling.
                 </p>
                 <p className="text-gray-700 mb-6 leading-relaxed">
-                  We closely work with engineering, construction, and Ready Mix Concrete solution providers to enhance their complex operational challenges by designing, manufacturing & executing various concepts & equipment. Leveraging profound engineering knowledge and project management expertise, we enable innovation at our clients' processes to maximize their return on investment (ROI) in every project or venture.
+                  We closely work with engineering, construction, and Ready Mix Concrete solution providers to enhance their complex operational challenges by designing, manufacturing & executing various concepts & equipment. Leveraging profound engineering knowledge and project management expertise, we enable innovation at our clients&#39; processes to maximize their return on investment (ROI) in every project or venture.
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
@@ -331,6 +400,83 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <section id="gallery" className="py-20 px-4 bg-gradient-to-b from-transparent to-blue-50/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              In Action
+            </h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              A glimpse of industrial equipment and environments relevant to our products and services.
+            </p>
+          </div>
+
+          {(() => {
+            const photos = [
+              {
+                src:
+                  'https://images.pexels.com/photos/236089/pexels-photo-236089.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=1',
+                alt: 'Industrial silos and structures',
+                credit: 'Pexels',
+                link: 'https://www.pexels.com',
+              },
+              {
+                src:
+                  'https://images.pexels.com/photos/256983/pexels-photo-256983.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=1',
+                alt: 'Factory interior with machinery',
+                credit: 'Pexels',
+                link: 'https://www.pexels.com',
+              },
+              {
+                src:
+                  'https://images.pexels.com/photos/373912/pexels-photo-373912.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=1',
+                alt: 'Conveyor system and material handling',
+                credit: 'Pexels',
+                link: 'https://www.pexels.com',
+              },
+            ];
+
+            return (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {photos.map((p, i) => (
+                  <div
+                    key={i}
+                    className="group relative overflow-hidden rounded-2xl shadow-xl border border-white/30 backdrop-blur-md bg-white/60"
+                  >
+                    <div className="aspect-[4/3] bg-slate-200">
+                      <Image
+                        src={p.src}
+                        alt={p.alt}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+                      <div className="text-sm opacity-90">{p.alt}</div>
+                      <a
+                        href={p.link}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="text-xs text-blue-200 hover:text-white"
+                      >
+                        Image credit: {p.credit}
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+
+          <p className="text-xs text-gray-500 mt-6 text-center">
+            Images are for illustrative purposes and sourced from open resources like Pexels.
+          </p>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4 bg-gradient-to-b from-blue-50/30 to-transparent">
         <div className="max-w-7xl mx-auto">
@@ -442,15 +588,156 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Feedback Section */}
+      <section id="feedback" className="py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              Feedback
+            </h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Tell us how we&#39;re doing. Your feedback helps us serve you better.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 items-stretch">
+            <Card className="backdrop-blur-xl bg-white/80 border-white/30 shadow-2xl">
+              <CardHeader>
+                <CardTitle>Share your experience</CardTitle>
+                <CardDescription>
+                  We read every submission. Fields marked with * are required.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Name *</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Your full name" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email *</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="you@example.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone (optional)</FormLabel>
+                          <FormControl>
+                            <Input type="tel" placeholder="+91 98765 43210" {...field} />
+                          </FormControl>
+                          <FormDescription>If you&#39;d like us to call you back.</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="rating"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Overall rating *</FormLabel>
+                          <FormDescription>How would you rate your experience?</FormDescription>
+                          <FormControl>
+                            <RadioGroup
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                              className="grid grid-cols-5 gap-4"
+                            >
+                              {(['1', '2', '3', '4', '5'] as const).map((val) => (
+                                <div key={val} className="flex items-center space-x-2">
+                                  <RadioGroupItem value={val} id={`rating-${val}`} />
+                                  <label htmlFor={`rating-${val}`} className="text-sm text-gray-700">
+                                    {val}
+                                  </label>
+                                </div>
+                              ))}
+                            </RadioGroup>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Comments *</FormLabel>
+                          <FormControl>
+                            <Textarea rows={5} placeholder="What went well? What can we improve?" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="flex items-center justify-between pt-2">
+                      <p className="text-xs text-gray-500">Average response time: under 48 hours</p>
+                      <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={submitting}>
+                        {submitting ? 'Sending…' : 'Submit Feedback'}
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
+
+            <div className="backdrop-blur-xl bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-8 text-white shadow-2xl">
+              <h3 className="text-2xl font-bold mb-4">We value your voice</h3>
+              <p className="text-blue-100 mb-6">
+                Whether it&#39;s praise or suggestions, your insights help us build better products and services.
+              </p>
+              <ul className="space-y-3 text-blue-100">
+                <li className="flex items-start space-x-2">
+                  <div className="mt-1 h-2 w-2 rounded-full bg-white" />
+                  <span>Used to improve product quality and support</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <div className="mt-1 h-2 w-2 rounded-full bg-white" />
+                  <span>No spam, ever — we only contact if follow-up is needed</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <div className="mt-1 h-2 w-2 rounded-full bg-white" />
+                  <span>Anonymous feedback? Leave name/email blank</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div className="col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <Building2 className="h-8 w-8 text-blue-400" />
-                <span className="text-xl font-bold">ARYAN ENTERPRISES</span>
-              </div>
+              <Image src={footerLogo} alt='headerLogo' height={10} width={100} />
+              <br />
               <p className="text-slate-300 text-sm leading-relaxed mb-4">
                 Leading manufacturer of industrial equipment for RMC plants, cement handling, and material handling solutions. Committed to quality, innovation, and customer satisfaction.
               </p>
@@ -474,6 +761,11 @@ export default function Home() {
                 <li>
                   <button onClick={() => scrollToSection('services')} className="hover:text-blue-400 transition-colors">
                     Services
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollToSection('feedback')} className="hover:text-blue-400 transition-colors">
+                    Feedback
                   </button>
                 </li>
                 <li>
