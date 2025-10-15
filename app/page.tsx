@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -19,6 +19,7 @@ import footerLogo from '../images/footer.png';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { toast } = useToast();
 
   const feedbackSchema = z.object({
@@ -86,31 +87,44 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.getElementById('home');
+      if (heroSection) {
+        const heroBottom = heroSection.offsetHeight;
+        setIsScrolled(window.scrollY > heroBottom - 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/70 border-b border-gray-200">
+      <nav className={`fixed top-0 w-full z-50 backdrop-blur-md ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'} border-b ${isScrolled ? 'border-gray-200' : 'border-white/20'} transition-all duration-300`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Image src={logo} alt='headerLogo' height={10} width={100} />
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('home')} className={`${isScrolled ? 'text-black' : 'text-white'} hover:text-blue-300 transition-colors font-medium`}>
                 Home
               </button>
-              <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('about')} className={`${isScrolled ? 'text-black' : 'text-white'} hover:text-blue-300 transition-colors font-medium`}>
                 About
               </button>
-              <button onClick={() => scrollToSection('products')} className="text-gray-700 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('products')} className={`${isScrolled ? 'text-black' : 'text-white'} hover:text-blue-300 transition-colors font-medium`}>
                 Products
               </button>
-              <button onClick={() => scrollToSection('services')} className="text-gray-700 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('services')} className={`${isScrolled ? 'text-black' : 'text-white'} hover:text-blue-300 transition-colors font-medium`}>
                 Services
               </button>
-              <button onClick={() => scrollToSection('feedback')} className="text-gray-700 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('feedback')} className={`${isScrolled ? 'text-black' : 'text-white'} hover:text-blue-300 transition-colors font-medium`}>
                 Feedback
               </button>
-              <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('contact')} className={`${isScrolled ? 'text-black' : 'text-white'} hover:text-blue-300 transition-colors font-medium`}>
                 Contact
               </button>
             </div>
@@ -118,7 +132,7 @@ export default function Home() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              className={`md:hidden p-2 rounded-lg hover:bg-white/10 ${isScrolled ? 'text-black' : 'text-white'}`}
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -127,24 +141,24 @@ export default function Home() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden backdrop-blur-lg bg-white/95 border-t border-gray-200">
+          <div className="md:hidden backdrop-blur-lg bg-slate-900/95 border-t border-white/20">
             <div className="px-4 py-4 space-y-3">
-              <button onClick={() => scrollToSection('home')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+              <button onClick={() => scrollToSection('home')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
                 Home
               </button>
-              <button onClick={() => scrollToSection('about')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+              <button onClick={() => scrollToSection('about')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
                 About
               </button>
-              <button onClick={() => scrollToSection('products')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+              <button onClick={() => scrollToSection('products')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
                 Products
               </button>
-              <button onClick={() => scrollToSection('services')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+              <button onClick={() => scrollToSection('services')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
                 Services
               </button>
-              <button onClick={() => scrollToSection('feedback')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+              <button onClick={() => scrollToSection('feedback')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
                 Feedback
               </button>
-              <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+              <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
                 Contact
               </button>
             </div>
@@ -153,51 +167,47 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="pt-24 pb-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
+      <section id="home" className="relative min-h-screen w-full overflow-hidden">
+        {/* Background Video */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="https://www.pexels.com/download/video/5348783/" type="video/mp4" />
+            {/* Fallback for browsers that don't support video */}
+          </video>
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/70 via-blue-900/60 to-slate-900/70"></div>
+        </div>
+
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+          <div className="text-center mb-12 max-w-7xl mx-auto">
             <div className="inline-flex items-center justify-center p-2 mb-6">
-              <Badge variant="outline" className="text-blue-600 border-blue-300 bg-blue-50 px-4 py-2">
+              <Badge variant="outline" className="text-blue-200 border-blue-300 bg-blue-950/50 backdrop-blur-sm px-4 py-2">
                 Manufacturer of Industrial Equipment
               </Badge>
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
               Innovative Solutions for
               <br />
               Industrial Excellence
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-gray-100 max-w-3xl mx-auto mb-8 drop-shadow-lg">
               Leading manufacturer of Welded & Bolted Silos, Screw Conveyors, Dust Collectors, and complete material handling solutions for RMC plants and industrial applications.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button onClick={() => scrollToSection('products')} size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8">
+              <Button onClick={() => scrollToSection('products')} size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 shadow-xl">
                 Explore Products
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button onClick={() => scrollToSection('contact')} variant="outline" size="lg" className="text-lg px-8">
+              <Button onClick={() => scrollToSection('contact')} variant="outline" size="lg" className="text-lg px-8 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 shadow-xl">
                 Get In Touch
               </Button>
             </div>
-          </div>
-
-          {/* Glass Card Feature Highlights */}
-          <div className="grid md:grid-cols-3 gap-6 mt-16">
-            {[
-              { icon: ShieldCheck, title: 'Quality Assured', description: 'ISO certified manufacturing with stringent quality controls' },
-              { icon: Zap, title: 'Fast Delivery', description: 'Quick turnaround with ex-stock availability' },
-              { icon: Settings, title: 'Custom Solutions', description: 'Tailored designs to meet specific requirements' }
-            ].map((feature, index) => (
-              <div
-                key={index}
-                className="backdrop-blur-lg bg-white/60 border border-white/20 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
-              >
-                <div className="bg-blue-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
-                  <feature.icon className="h-6 w-6 text-blue-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600 text-sm">{feature.description}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
