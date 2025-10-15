@@ -143,22 +143,22 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="md:hidden backdrop-blur-lg bg-slate-900/95 border-t border-white/20">
             <div className="px-4 py-4 space-y-3">
-              <button onClick={() => scrollToSection('home')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
+              <button onClick={() => scrollToSection('home')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-white">
                 Home
               </button>
-              <button onClick={() => scrollToSection('about')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
+              <button onClick={() => scrollToSection('about')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-white">
                 About
               </button>
-              <button onClick={() => scrollToSection('products')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
+              <button onClick={() => scrollToSection('products')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-white">
                 Products
               </button>
-              <button onClick={() => scrollToSection('services')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
+              <button onClick={() => scrollToSection('services')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-white">
                 Services
               </button>
-              <button onClick={() => scrollToSection('feedback')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
+              <button onClick={() => scrollToSection('feedback')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-white">
                 Feedback
               </button>
-              <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-black">
+              <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-white">
                 Contact
               </button>
             </div>
@@ -184,27 +184,27 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/70 via-blue-900/60 to-slate-900/70"></div>
         </div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
-          <div className="text-center mb-12 max-w-7xl mx-auto">
-            <div className="inline-flex items-center justify-center p-2 mb-6">
-              <Badge variant="outline" className="text-blue-200 border-blue-300 bg-blue-950/50 backdrop-blur-sm px-4 py-2">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-12 max-w-7xl mx-auto">
+            <div className="inline-flex items-center justify-center p-1 sm:p-2 mb-4 sm:mb-6">
+              <Badge variant="outline" className="text-blue-200 border-blue-300 bg-blue-950/50 backdrop-blur-sm px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm">
                 Manufacturer of Industrial Equipment
               </Badge>
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl leading-tight">
               Innovative Solutions for
               <br />
               Industrial Excellence
             </h1>
-            <p className="text-xl text-gray-100 max-w-3xl mx-auto mb-8 drop-shadow-lg">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-100 max-w-3xl mx-auto mb-6 sm:mb-8 drop-shadow-lg px-2">
               Leading manufacturer of Welded & Bolted Silos, Screw Conveyors, Dust Collectors, and complete material handling solutions for RMC plants and industrial applications.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button onClick={() => scrollToSection('products')} size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 shadow-xl">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-2">
+              <Button onClick={() => scrollToSection('products')} size="lg" className="bg-blue-600 hover:bg-blue-700 text-sm sm:text-base md:text-lg px-6 sm:px-8 py-2 sm:py-3 shadow-xl">
                 Explore Products
-                <ChevronRight className="ml-2 h-5 w-5" />
+                <ChevronRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
-              <Button onClick={() => scrollToSection('contact')} variant="outline" size="lg" className="text-lg px-8 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 shadow-xl">
+              <Button onClick={() => scrollToSection('contact')} variant="outline" size="lg" className="text-sm sm:text-base md:text-lg px-6 sm:px-8 py-2 sm:py-3 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 shadow-xl">
                 Get In Touch
               </Button>
             </div>
