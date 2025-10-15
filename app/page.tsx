@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Building2, Factory, Cog, Package, ShieldCheck, Zap, Phone, Mail, MapPin, Menu, X, ChevronRight, Settings, Wrench, Box } from 'lucide-react';
+import { Building2, Factory, Cog, Package, ShieldCheck, Zap, Phone, Mail, MapPin, Menu, X, ChevronRight, Settings, Wrench, Box, MessageCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -101,7 +101,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+    <div className="min-h-screen bg-white">
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 backdrop-blur-md ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'} border-b ${isScrolled ? 'border-gray-200' : 'border-white/20'} transition-all duration-300`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -213,78 +213,117 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="backdrop-blur-xl bg-white/70 rounded-3xl p-8 md:p-12 shadow-2xl border border-white/30">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  About Us
-                </h2>
-                <p className="text-gray-700 mb-4 leading-relaxed">
-                  <span className="font-semibold text-gray-900">ARYAN ENTERPRISES</span> is an innovative solutions provider in various industrial segments including RMC plants, Cement, Fly ash, Micro Silica, GGBFS handling, Aggregate & Sand handling.
-                </p>
-                <p className="text-gray-700 mb-6 leading-relaxed">
-                  We closely work with engineering, construction, and Ready Mix Concrete solution providers to enhance their complex operational challenges by designing, manufacturing & executing various concepts & equipment. Leveraging profound engineering knowledge and project management expertise, we enable innovation at our clients&#39; processes to maximize their return on investment (ROI) in every project or venture.
-                </p>
-                <div className="space-y-3">
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-blue-100 rounded-full p-1 mt-1">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    </div>
-                    <span className="text-gray-700">Process optimization & automation</span>
+      <section id="about" className="py-20 px-4 bg-white relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-50"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              About Us
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto rounded-full"></div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div className="bg-gradient-to-br from-white to-blue-50 rounded-3xl p-8 md:p-10 shadow-xl border border-blue-100 hover:shadow-2xl transition-shadow">
+              <div className="mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl mb-4 shadow-lg">
+                  <Building2 className="h-8 w-8 text-white" />
+                </div>
+              </div>
+              <p className="text-gray-700 mb-4 leading-relaxed text-lg">
+                <span className="font-bold text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text">ARYAN ENTERPRISES</span> is an innovative solutions provider in various industrial segments including RMC plants, Cement, Fly ash, Micro Silica, GGBFS handling, Aggregate & Sand handling.
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                We closely work with engineering, construction, and Ready Mix Concrete solution providers to enhance their complex operational challenges by designing, manufacturing & executing various concepts & equipment.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all hover:scale-105 group">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Zap className="h-6 w-6 text-white" />
                   </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-blue-100 rounded-full p-1 mt-1">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    </div>
-                    <span className="text-gray-700">Lower expenditure & improved efficiency</span>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-blue-100 rounded-full p-1 mt-1">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    </div>
-                    <span className="text-gray-700">Faster ROI & longevity</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Process Optimization</h3>
+                    <p className="text-sm text-gray-600">Advanced automation solutions</p>
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg">
-                  <Factory className="h-10 w-10 mb-3 opacity-80" />
-                  <div className="text-3xl font-bold mb-1">15+</div>
-                  <div className="text-blue-100 text-sm">Years Experience</div>
-                </div>
-                <div className="bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl p-6 text-white shadow-lg">
-                  <Package className="h-10 w-10 mb-3 opacity-80" />
-                  <div className="text-3xl font-bold mb-1">500+</div>
-                  <div className="text-slate-200 text-sm">Projects Completed</div>
-                </div>
-                <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white shadow-lg">
-                  <ShieldCheck className="h-10 w-10 mb-3 opacity-80" />
-                  <div className="text-3xl font-bold mb-1">100%</div>
-                  <div className="text-emerald-100 text-sm">Quality Assured</div>
-                </div>
-                <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white shadow-lg">
-                  <Cog className="h-10 w-10 mb-3 opacity-80" />
-                  <div className="text-3xl font-bold mb-1">24/7</div>
-                  <div className="text-orange-100 text-sm">Support Available</div>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all hover:scale-105 group">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <ShieldCheck className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Cost Efficiency</h3>
+                    <p className="text-sm text-gray-600">Lower expenditure, higher returns</p>
+                  </div>
                 </div>
               </div>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all hover:scale-105 group">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Cog className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Faster ROI</h3>
+                    <p className="text-sm text-gray-600">Quick returns & longevity</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-2xl transition-all hover:scale-105 group">
+              <Factory className="h-10 w-10 mb-3 opacity-80 group-hover:scale-110 transition-transform" />
+              <div className="text-4xl font-bold mb-1">15+</div>
+              <div className="text-blue-100 text-sm">Years Experience</div>
+            </div>
+            <div className="bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl p-6 text-white shadow-lg hover:shadow-2xl transition-all hover:scale-105 group">
+              <Package className="h-10 w-10 mb-3 opacity-80 group-hover:scale-110 transition-transform" />
+              <div className="text-4xl font-bold mb-1">500+</div>
+              <div className="text-slate-200 text-sm">Projects Completed</div>
+            </div>
+            <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-2xl transition-all hover:scale-105 group">
+              <ShieldCheck className="h-10 w-10 mb-3 opacity-80 group-hover:scale-110 transition-transform" />
+              <div className="text-4xl font-bold mb-1">100%</div>
+              <div className="text-emerald-100 text-sm">Quality Assured</div>
+            </div>
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-2xl transition-all hover:scale-105 group">
+              <Cog className="h-10 w-10 mb-3 opacity-80 group-hover:scale-110 transition-transform" />
+              <div className="text-4xl font-bold mb-1">24/7</div>
+              <div className="text-orange-100 text-sm">Support Available</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Products Section */}
-      <section id="products" className="py-20 px-4 bg-gradient-to-b from-transparent to-blue-50/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+      <section id="products" className="py-20 px-4 bg-slate-900 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-900/20 rounded-full blur-3xl"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/30 px-4 py-1">
+                Premium Quality
+              </Badge>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent">
               Our Products
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Comprehensive range of industrial equipment designed for efficiency and reliability
             </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-400 mx-auto rounded-full mt-4"></div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -327,21 +366,24 @@ export default function Home() {
                 features: ['Gear Reducers', 'Filter Cartridges', 'Bearing Assemblies', 'Internal Screws']
               }
             ].map((product, index) => (
-              <Card key={index} className="backdrop-blur-lg bg-white/80 border-white/30 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 group">
+              <Card key={index} className="backdrop-blur-lg bg-slate-800/80 border-slate-700/50 shadow-xl hover:shadow-blue-500/20 hover:shadow-2xl transition-all hover:-translate-y-2 group relative overflow-hidden">
+                {/* Decorative gradient overlay */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
                 <CardHeader>
-                  <div className="bg-gradient-to-br from-blue-500 to-blue-600 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <div className="bg-gradient-to-br from-blue-500 to-indigo-600 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all shadow-lg">
                     <product.icon className="h-7 w-7 text-white" />
                   </div>
-                  <CardTitle className="text-xl">{product.title}</CardTitle>
-                  <CardDescription className="text-gray-600">
+                  <CardTitle className="text-xl text-white group-hover:text-blue-300 transition-colors">{product.title}</CardTitle>
+                  <CardDescription className="text-gray-400 group-hover:text-gray-300 transition-colors">
                     {product.description}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {product.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center space-x-2 text-sm text-gray-700">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                      <div key={idx} className="flex items-center space-x-3 text-sm text-gray-300 group/item hover:text-blue-300 transition-colors">
+                        <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400"></div>
                         <span>{feature}</span>
                       </div>
                     ))}
@@ -354,15 +396,25 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+      <section id="services" className="py-20 px-4 bg-white relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-50 rounded-full blur-3xl opacity-60"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-60"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <Badge className="bg-blue-100 text-blue-600 border-blue-200 px-4 py-1">
+                Expert Solutions
+              </Badge>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 bg-clip-text text-transparent">
               Our Services
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
               Complete material handling solutions from design to installation
             </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto rounded-full mt-4"></div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -370,39 +422,55 @@ export default function Home() {
               {
                 title: 'Silo Feeding Systems',
                 description: 'Complete bulker unloading systems and dual cement feeding systems. Reduces dependency on compressor-mounted bulkers with high-performance electric motors (40-60 HP).',
-                features: ['Bulker Unloading Units', 'Dual Cement Feeding', 'Advanced Control Panels', 'Manual Butterfly Valves']
+                features: ['Bulker Unloading Units', 'Dual Cement Feeding', 'Advanced Control Panels', 'Manual Butterfly Valves'],
+                icon: Factory,
+                color: 'from-blue-500 to-blue-600'
               },
               {
                 title: 'Inclined & Vertical Screw Feeding',
                 description: 'Vertical and inclined screw feeding systems for cement bag feeding to silos. Lower electrical load compared to pneumatic systems, most cost-effective solution.',
-                features: ['Low Power Consumption', 'Dust & Pollution Free', 'Adjustable Vibrating Force', 'Easy Operation']
+                features: ['Low Power Consumption', 'Dust & Pollution Free', 'Adjustable Vibrating Force', 'Easy Operation'],
+                icon: Settings,
+                color: 'from-emerald-500 to-emerald-600'
               },
               {
                 title: 'Custom Design & Manufacturing',
                 description: 'Tailored solutions for specific operational requirements. Custom colors, logo placement, and personalization available for all equipment.',
-                features: ['Bespoke Engineering', 'Quality Materials', 'Custom Branding', 'Technical Support']
+                features: ['Bespoke Engineering', 'Quality Materials', 'Custom Branding', 'Technical Support'],
+                icon: Wrench,
+                color: 'from-orange-500 to-orange-600'
               },
               {
                 title: 'Installation & Commissioning',
                 description: 'Professional installation services with comprehensive project management. Rapid setup and commissioning with full technical documentation.',
-                features: ['Expert Installation', 'Site Supervision', 'Testing & Commissioning', 'Training Provided']
+                features: ['Expert Installation', 'Site Supervision', 'Testing & Commissioning', 'Training Provided'],
+                icon: ShieldCheck,
+                color: 'from-indigo-500 to-indigo-600'
               }
             ].map((service, index) => (
               <div
                 key={index}
-                className="backdrop-blur-xl bg-white/70 rounded-2xl p-8 border border-white/30 shadow-xl hover:shadow-2xl transition-all"
+                className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 border border-gray-200 shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 group relative overflow-hidden"
               >
-                <h3 className="text-2xl font-bold mb-4 text-gray-900">{service.title}</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-                <div className="grid grid-cols-2 gap-3">
-                  {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center space-x-2">
-                      <div className="bg-blue-100 rounded-full p-1">
-                        <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                {/* Decorative corner element */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br opacity-5 rounded-bl-full group-hover:opacity-10 transition-opacity"></div>
+
+                <div className="relative">
+                  <div className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${service.color} rounded-2xl mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all`}>
+                    <service.icon className="h-7 w-7 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors">{service.title}</h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                  <div className="grid grid-cols-2 gap-4">
+                    {service.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-start space-x-2">
+                        <div className="mt-1 bg-blue-100 rounded-full p-1 group-hover:bg-blue-200 transition-colors">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                        </div>
+                        <span className="text-sm text-gray-700 leading-tight">{feature}</span>
                       </div>
-                      <span className="text-sm text-gray-700">{feature}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
@@ -411,15 +479,25 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section id="gallery" className="py-20 px-4 bg-gradient-to-b from-transparent to-blue-50/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+      <section id="gallery" className="py-20 px-4 bg-slate-900 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-1/4 left-0 w-72 h-72 bg-blue-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-indigo-900/20 rounded-full blur-3xl"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/30 px-4 py-1">
+                Our Work
+              </Badge>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent">
               In Action
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              A glimpse of industrial equipment and environments relevant to our products and services.
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              A glimpse of industrial equipment and environments relevant to our products and services
             </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-400 mx-auto rounded-full mt-4"></div>
           </div>
 
           {(() => {
@@ -488,110 +566,125 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 bg-gradient-to-b from-blue-50/30 to-transparent">
-        <div className="max-w-7xl mx-auto">
-          <div className="backdrop-blur-xl bg-white/80 rounded-3xl p-8 md:p-12 shadow-2xl border border-white/30">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                Get In Touch
-              </h2>
-              <p className="text-gray-600 text-lg">
-                Contact us for inquiries, quotes, or technical support
-              </p>
+      <section id="contact" className="py-20 px-4 bg-white relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-50"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <Badge className="bg-blue-100 text-blue-600 border-blue-200 px-4 py-1">
+                Contact Us
+              </Badge>
             </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 bg-clip-text text-transparent">
+              Get In Touch
+            </h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Contact us for inquiries, quotes, or technical support
+            </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto rounded-full mt-4"></div>
+          </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Contact Information */}
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4 p-4 rounded-xl bg-blue-50/50 hover:bg-blue-50 transition-colors">
-                  <div className="bg-blue-600 rounded-lg p-3">
-                    <MapPin className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Corporate Office</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      Ring Road No.1, Near D.D.U. Nagar,<br />
-                      Housing Board Gate, Opp. Manuas Realty,<br />
-                      Raipur - 492001
-                    </p>
-                  </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Contact Information */}
+            <div className="space-y-5">
+              <div className="group flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-white to-blue-50 hover:shadow-xl transition-all hover:-translate-y-1 border border-blue-100">
+                <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl p-3 shadow-lg group-hover:scale-110 transition-transform">
+                  <MapPin className="h-6 w-6 text-white" />
                 </div>
-
-                <div className="flex items-start space-x-4 p-4 rounded-xl bg-blue-50/50 hover:bg-blue-50 transition-colors">
-                  <div className="bg-blue-600 rounded-lg p-3">
-                    <Factory className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Factory Address</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      Ring Road No.2, Near Prince Dhaba,<br />
-                      Opp. Essar Petrol Pump, Raipur
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4 p-4 rounded-xl bg-blue-50/50 hover:bg-blue-50 transition-colors">
-                  <div className="bg-blue-600 rounded-lg p-3">
-                    <Phone className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Phone</h4>
-                    <a href="tel:+919691177778" className="text-blue-600 hover:text-blue-700 font-medium">
-                      +91 9691177778
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4 p-4 rounded-xl bg-blue-50/50 hover:bg-blue-50 transition-colors">
-                  <div className="bg-blue-600 rounded-lg p-3">
-                    <Mail className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Email</h4>
-                    <a href="mailto:aryanenterprisescg@gmail.com" className="text-blue-600 hover:text-blue-700 font-medium break-all">
-                      aryanenterprisescg@gmail.com
-                    </a>
-                  </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2 text-lg">Corporate Office</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Ring Road No.1, Near D.D.U. Nagar,<br />
+                    Housing Board Gate, Opp. Manuas Realty,<br />
+                    Raipur - 492001
+                  </p>
                 </div>
               </div>
 
-              {/* Quick Contact Form */}
-              <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-6">Request a Quote</h3>
-                <p className="mb-6 text-blue-100">
+              <div className="group flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-white to-emerald-50 hover:shadow-xl transition-all hover:-translate-y-1 border border-emerald-100">
+                <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-xl p-3 shadow-lg group-hover:scale-110 transition-transform">
+                  <Factory className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2 text-lg">Factory Address</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Ring Road No.2, Near Prince Dhaba,<br />
+                    Opp. Essar Petrol Pump, Raipur
+                  </p>
+                </div>
+              </div>
+
+              <div className="group flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-white to-orange-50 hover:shadow-xl transition-all hover:-translate-y-1 border border-orange-100">
+                <div className="bg-gradient-to-br from-orange-600 to-orange-700 rounded-xl p-3 shadow-lg group-hover:scale-110 transition-transform">
+                  <Phone className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2 text-lg">Phone</h4>
+                  <a href="tel:+919691177778" className="text-orange-600 hover:text-orange-700 font-semibold text-lg">
+                    +91 9691177778
+                  </a>
+                </div>
+              </div>
+
+              <div className="group flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-white to-indigo-50 hover:shadow-xl transition-all hover:-translate-y-1 border border-indigo-100">
+                <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-xl p-3 shadow-lg group-hover:scale-110 transition-transform">
+                  <Mail className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2 text-lg">Email</h4>
+                  <a href="mailto:aryanenterprisescg@gmail.com" className="text-indigo-600 hover:text-indigo-700 font-semibold break-all">
+                    aryanenterprisescg@gmail.com
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Contact Form */}
+            <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 rounded-2xl p-8 text-white shadow-2xl relative overflow-hidden">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+
+              <div className="relative z-10">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/20 rounded-xl mb-4">
+                  <ShieldCheck className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-3xl font-bold mb-4">Request a Quote</h3>
+                <p className="mb-8 text-blue-100 leading-relaxed">
                   Our team of experts is ready to help you find the perfect solution for your industrial needs.
                 </p>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">Why Choose Us?</h4>
-                    <ul className="space-y-2 text-blue-100">
-                      <li className="flex items-center space-x-2">
-                        <ChevronRight className="h-4 w-4" />
-                        <span>ISO certified manufacturing</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <ChevronRight className="h-4 w-4" />
-                        <span>Competitive pricing</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <ChevronRight className="h-4 w-4" />
-                        <span>Quick delivery & installation</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <ChevronRight className="h-4 w-4" />
-                        <span>Comprehensive after-sales support</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <ChevronRight className="h-4 w-4" />
-                        <span>Custom solutions available</span>
-                      </li>
-                    </ul>
+                <div className="space-y-4 mb-8">
+                  <h4 className="font-bold mb-4 text-lg">Why Choose Us?</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-start space-x-3 bg-white/10 rounded-xl p-3 backdrop-blur-sm">
+                      <ChevronRight className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                      <span className="text-blue-50">ISO certified manufacturing</span>
+                    </div>
+                    <div className="flex items-start space-x-3 bg-white/10 rounded-xl p-3 backdrop-blur-sm">
+                      <ChevronRight className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                      <span className="text-blue-50">Competitive pricing</span>
+                    </div>
+                    <div className="flex items-start space-x-3 bg-white/10 rounded-xl p-3 backdrop-blur-sm">
+                      <ChevronRight className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                      <span className="text-blue-50">Quick delivery & installation</span>
+                    </div>
+                    <div className="flex items-start space-x-3 bg-white/10 rounded-xl p-3 backdrop-blur-sm">
+                      <ChevronRight className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                      <span className="text-blue-50">Comprehensive after-sales support</span>
+                    </div>
+                    <div className="flex items-start space-x-3 bg-white/10 rounded-xl p-3 backdrop-blur-sm">
+                      <ChevronRight className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                      <span className="text-blue-50">Custom solutions available</span>
+                    </div>
                   </div>
-                  <Button className="w-full bg-white text-blue-600 hover:bg-blue-50 mt-6" size="lg">
-                    <Phone className="mr-2 h-5 w-5" />
-                    Call Now
-                  </Button>
                 </div>
+                <Button className="w-full bg-white text-blue-600 hover:bg-blue-50 shadow-xl hover:shadow-2xl transition-all hover:scale-105" size="lg">
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call Now
+                </Button>
               </div>
             </div>
           </div>
@@ -599,15 +692,25 @@ export default function Home() {
       </section>
 
       {/* Feedback Section */}
-      <section id="feedback" className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+      <section id="feedback" className="py-20 px-4 bg-slate-900 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-900/20 rounded-full blur-3xl"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/30 px-4 py-1">
+                We Value Your Opinion
+              </Badge>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent">
               Feedback
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Tell us how we&#39;re doing. Your feedback helps us serve you better.
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Tell us how we&#39;re doing. Your feedback helps us serve you better
             </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-400 mx-auto rounded-full mt-4"></div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 items-stretch">
@@ -802,6 +905,33 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* WhatsApp Floating Button */}
+      <a
+        href="https://wa.me/919691177778"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 group"
+        aria-label="Chat on WhatsApp"
+      >
+        <div className="relative">
+          {/* Pulsing ring effect */}
+          <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75"></div>
+
+          {/* Main button */}
+          <div className="relative bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-green-500/50">
+            <MessageCircle className="h-7 w-7" fill="currentColor" />
+          </div>
+
+          {/* Tooltip */}
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-xl">
+              Chat on WhatsApp
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 rotate-45 w-2 h-2 bg-slate-900"></div>
+            </div>
+          </div>
+        </div>
+      </a>
     </div>
   );
 }
