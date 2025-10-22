@@ -642,7 +642,8 @@ export default function Home() {
                 </div>
                 <div>
                   <h4 className="font-bold text-gray-900 mb-2 text-lg">Phone</h4>
-                  <a href="tel:+919691177778" className="text-orange-600 hover:text-orange-700 font-semibold text-lg">
+                  <a href="tel:+919691177778" className="text-orange-600 hover:text-orange-700 font-semibold">
+                    +91 9920360000{", "}
                     +91 9171110052{", "}
                     +91 9171110060
                   </a>
@@ -656,7 +657,8 @@ export default function Home() {
                 <div>
                   <h4 className="font-bold text-gray-900 mb-2 text-lg">Email</h4>
                   <a href="mailto:aryanenterprisescg@gmail.com" className="text-indigo-600 hover:text-indigo-700 font-semibold break-all">
-                    aryanenterprisescg@gmail.com
+                    aryanenterprisescg@gmail.com {", "}
+                    sales@aryanerp.com
                   </a>
                 </div>
               </div>
