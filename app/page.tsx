@@ -564,7 +564,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
-                      <div className="text-sm opacity-90">{p.alt}</div>
+                      {/* <div className="text-sm opacity-90">{p.alt}</div> */}
                       <a
                         href={p.link}
                         target="_blank"
@@ -591,7 +591,6 @@ export default function Home() {
         {/* Decorative Elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-50"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
-
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <div className="inline-block mb-4">
@@ -618,9 +617,8 @@ export default function Home() {
                 <div>
                   <h4 className="font-bold text-gray-900 mb-2 text-lg">Corporate Office</h4>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    Ring Road No.1, Near D.D.U. Nagar,<br />
-                    Housing Board Gate, Opp. Manuas Realty,<br />
-                    Raipur - 492001
+                    Ring Road No.2, Near Prince Dhaba,<br />
+                    Opp. Essar Petrol Pump, Raipur
                   </p>
                 </div>
               </div>
@@ -645,7 +643,8 @@ export default function Home() {
                 <div>
                   <h4 className="font-bold text-gray-900 mb-2 text-lg">Phone</h4>
                   <a href="tel:+919691177778" className="text-orange-600 hover:text-orange-700 font-semibold text-lg">
-                    +91 9691177778
+                    +91 9171110052{", "}
+                    +91 9171110060
                   </a>
                 </div>
               </div>
@@ -702,9 +701,13 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <Button className="w-full bg-white text-blue-600 hover:bg-blue-50 shadow-xl hover:shadow-2xl transition-all hover:scale-105" size="lg">
-                  <Phone className="mr-2 h-5 w-5" />
-                  Call Now
+                <Button onClick={() => {
+                  const link = document.createElement("a");
+                  link.href = "/files/Aryan Equipment Booklet.pdf"
+                  link.download = "Aryan Equipment Booklet.pdf"
+                  link.click()
+                }} className="w-full bg-white text-blue-600 hover:bg-blue-50 shadow-xl hover:shadow-2xl transition-all hover:scale-105" size="lg">
+                  Get Quote
                 </Button>
               </div>
             </div>
