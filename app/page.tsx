@@ -1,10 +1,11 @@
 'use client';
 
+import { motion } from "framer-motion";
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Building2, Factory, Cog, Package, ShieldCheck, Zap, Phone, Mail, MapPin, Menu, X, ChevronRight, Settings, Wrench, Box, MessageCircle } from 'lucide-react';
+import { Building2, Factory, Cog, Package, ShieldCheck, Zap, Phone, Mail, MapPin, Menu, X, ChevronRight, Settings, Wrench, Box, MessageCircle, ExternalLink } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -21,6 +22,38 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { toast } = useToast();
+
+  const locations = [
+    {
+      title: "Corporate Office",
+      icon: <MapPin className="h-6 w-6 text-white" />,
+      address: (
+        <>
+          Ring Road No.2, Near Prince Dhaba,<br />
+          Opp. Essar Petrol Pump, Raipur
+        </>
+      ),
+      link: "https://www.google.com/maps?q=Ring+Road+No.2,+Near+Prince+Dhaba,+Opp.+Essar+Petrol+Pump,+Raipur",
+      gradient: "from-blue-600 to-indigo-600",
+      bg: "from-white to-blue-50",
+      border: "border-blue-100",
+    },
+    {
+      title: "Factory Address",
+      icon: <Factory className="h-6 w-6 text-white" />,
+      address: (
+        <>
+          Ring Road No.2, Near Prince Dhaba,<br />
+          Opp. Essar Petrol Pump, Raipur
+        </>
+      ),
+      link: "https://www.google.com/maps?q=Ring+Road+No.2,+Near+Prince+Dhaba,+Opp.+Essar+Petrol+Pump,+Raipur",
+      gradient: "from-emerald-600 to-emerald-700",
+      bg: "from-white to-emerald-50",
+      border: "border-emerald-100",
+    },
+  ];
+
 
   const feedbackSchema = z.object({
     name: z.string().min(2, 'Name is required'),
@@ -610,31 +643,33 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Information */}
             <div className="space-y-5">
-              <div className="group flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-white to-blue-50 hover:shadow-xl transition-all hover:-translate-y-1 border border-blue-100">
-                <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl p-3 shadow-lg group-hover:scale-110 transition-transform">
-                  <MapPin className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-2 text-lg">Corporate Office</h4>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    Ring Road No.2, Near Prince Dhaba,<br />
-                    Opp. Essar Petrol Pump, Raipur
-                  </p>
-                </div>
-              </div>
+              {locations.map((loc, i) => (
+                <motion.a
+                  key={i}
+                  href={loc.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02, y: -4 }}
+                  whileTap={{ scale: 0.97 }}
+                  className={`group flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br ${loc.bg} hover:shadow-xl transition-all ${loc.border} cursor-pointer`}
+                >
+                  <div
+                    className={`bg-gradient-to-br ${loc.gradient} rounded-xl p-3 shadow-lg group-hover:scale-110 transition-transform`}
+                  >
+                    {loc.icon}
+                  </div>
 
-              <div className="group flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-white to-emerald-50 hover:shadow-xl transition-all hover:-translate-y-1 border border-emerald-100">
-                <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-xl p-3 shadow-lg group-hover:scale-110 transition-transform">
-                  <Factory className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-2 text-lg">Factory Address</h4>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    Ring Road No.2, Near Prince Dhaba,<br />
-                    Opp. Essar Petrol Pump, Raipur
-                  </p>
-                </div>
-              </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-2 text-lg">{loc.title}</h4>
+                    <p className="text-gray-600 text-sm leading-relaxed">{loc.address}</p>
+
+                    <div className="flex items-center gap-1 text-xs text-blue-600 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ExternalLink className="h-3 w-3" />
+                      <span>View on Google Maps</span>
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
 
               <div className="group flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-white to-orange-50 hover:shadow-xl transition-all hover:-translate-y-1 border border-orange-100">
                 <div className="bg-gradient-to-br from-orange-600 to-orange-700 rounded-xl p-3 shadow-lg group-hover:scale-110 transition-transform">
