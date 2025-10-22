@@ -14,8 +14,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
-import logo from '../images/aryaLogo.png';
-import footerLogo from '../images/footer.png';
+import logo from '../public/images/aryaLogo.png';
+import footerLogo from '../public/images/footer.png';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -177,7 +177,7 @@ export default function Home() {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="https://www.pexels.com/download/video/5348783/" type="video/mp4" />
+            <source src={'/videos/5348783-hd_1920_1080_30fps.mp4'} type="video/mp4" />
             {/* Fallback for browsers that don't support video */}
           </video>
           {/* Dark overlay for better text readability */}
@@ -504,21 +504,42 @@ export default function Home() {
             const photos = [
               {
                 src:
-                  'https://images.pexels.com/photos/236089/pexels-photo-236089.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=1',
+                  '../images/pict1.jpg',
                 alt: 'Industrial silos and structures',
                 credit: 'Pexels',
                 link: 'https://www.pexels.com',
               },
               {
                 src:
-                  'https://images.pexels.com/photos/256983/pexels-photo-256983.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=1',
+                  '../images/pict2.jpg',
                 alt: 'Factory interior with machinery',
                 credit: 'Pexels',
                 link: 'https://www.pexels.com',
               },
               {
                 src:
-                  'https://images.pexels.com/photos/373912/pexels-photo-373912.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=1',
+                  '../images/pict3.jpg',
+                alt: 'Conveyor system and material handling',
+                credit: 'Pexels',
+                link: 'https://www.pexels.com',
+              },
+              {
+                src:
+                  '../images/pict4.jpg',
+                alt: 'Industrial silos and structures',
+                credit: 'Pexels',
+                link: 'https://www.pexels.com',
+              },
+              {
+                src:
+                  '../images/pict5.jpg',
+                alt: 'Factory interior with machinery',
+                credit: 'Pexels',
+                link: 'https://www.pexels.com',
+              },
+              {
+                src:
+                  '../images/pict6.jpg',
                 alt: 'Conveyor system and material handling',
                 credit: 'Pexels',
                 link: 'https://www.pexels.com',
