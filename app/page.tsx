@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Building2, Factory, Cog, Package, ShieldCheck, Zap, Phone, Mail, MapPin, Menu, X, ChevronRight, Settings, Wrench, Box, MessageCircle, ExternalLink } from 'lucide-react';
+import { Building2, Factory, Cog, Package, ShieldCheck, Zap, Phone, Mail, MapPin, Menu, X, ChevronRight, Settings, Wrench, Box, MessageCircle, ExternalLink, PhoneCall } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -17,6 +17,8 @@ import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import logo from '../public/images/aryaLogo.png';
 import footerLogo from '../public/images/footer.png';
+import Link from "next/link";
+import { FaAngleRight } from "react-icons/fa";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,7 +35,7 @@ export default function Home() {
           Opp. Essar Petrol Pump, Raipur
         </>
       ),
-      link: "https://www.google.com/maps?q=Ring+Road+No.2,+Near+Prince+Dhaba,+Opp.+Essar+Petrol+Pump,+Raipur",
+      link: "https://www.google.com/maps?q=21.2795804,81.6071632&z=17&hl=en",
       gradient: "from-blue-600 to-indigo-600",
       bg: "from-white to-blue-50",
       border: "border-blue-100",
@@ -47,7 +49,7 @@ export default function Home() {
           Opp. Essar Petrol Pump, Raipur
         </>
       ),
-      link: "https://www.google.com/maps?q=Ring+Road+No.2,+Near+Prince+Dhaba,+Opp.+Essar+Petrol+Pump,+Raipur",
+      link: "https://www.google.com/maps?q=21.2795804,81.6071632&z=17&hl=en",
       gradient: "from-emerald-600 to-emerald-700",
       bg: "from-white to-emerald-50",
       border: "border-emerald-100",
@@ -518,7 +520,8 @@ export default function Home() {
         <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-indigo-900/20 rounded-full blur-3xl"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-16">
+          {/* Header */}
+          <div className="text-center mb-12">
             <div className="inline-block mb-4">
               <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/30 px-4 py-1">
                 Our Work
@@ -527,52 +530,64 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent">
               In Action
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-6">
               A glimpse of industrial equipment and environments relevant to our products and services
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-400 mx-auto rounded-full mt-4"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-400 mx-auto rounded-full"></div>
           </div>
 
+          {/* View All Link */}
+          <div className="flex justify-end mb-8">
+            <Link
+              href="/galleryPage"
+              className="group inline-flex items-center gap-2 text-white font-medium hover:text-blue-400 transition-all duration-300"
+            >
+              <span className="relative text-sm">
+                View All Gallery
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+              </span>
+              <FaAngleRight
+                className="transition-transform duration-300 group-hover:translate-x-1"
+                size={16}
+              />
+            </Link>
+          </div>
+
+          {/* Photo Grid */}
           {(() => {
             const photos = [
               {
-                src:
-                  '../images/pict1.jpg',
+                src: '../images/pict1.jpg',
                 alt: 'Industrial silos and structures',
                 credit: 'Pexels',
                 link: 'https://www.pexels.com',
               },
               {
-                src:
-                  '../images/pict2.jpg',
+                src: '../images/pict2.jpg',
                 alt: 'Factory interior with machinery',
                 credit: 'Pexels',
                 link: 'https://www.pexels.com',
               },
               {
-                src:
-                  '../images/pict3.jpg',
+                src: '../images/pict3.jpg',
                 alt: 'Conveyor system and material handling',
                 credit: 'Pexels',
                 link: 'https://www.pexels.com',
               },
               {
-                src:
-                  '../images/pict4.jpg',
+                src: '../images/pict4.jpg',
                 alt: 'Industrial silos and structures',
                 credit: 'Pexels',
                 link: 'https://www.pexels.com',
               },
               {
-                src:
-                  '../images/pict5.jpg',
+                src: '../images/pict5.jpg',
                 alt: 'Factory interior with machinery',
                 credit: 'Pexels',
                 link: 'https://www.pexels.com',
               },
               {
-                src:
-                  '../images/pict6.jpg',
+                src: '../images/pict6.jpg',
                 alt: 'Conveyor system and material handling',
                 credit: 'Pexels',
                 link: 'https://www.pexels.com',
@@ -580,42 +595,59 @@ export default function Home() {
             ];
 
             return (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {photos.map((p, i) => (
-                  <div
+                  <motion.div
                     key={i}
-                    className="group relative overflow-hidden rounded-2xl shadow-xl border border-white/30 backdrop-blur-md bg-white/60"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    viewport={{ once: true }}
+                    className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-blue-500/30 hover:shadow-2xl transition-all duration-500"
                   >
-                    <div className="aspect-[4/3] bg-slate-200">
+                    {/* Image Container */}
+                    <div className="aspect-[4/3] bg-slate-800 overflow-hidden">
                       <Image
                         src={p.src}
                         alt={p.alt}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-2"
                         loading="lazy"
-                        width={100}
-                        height={100}
+                        width={600}
+                        height={450}
                       />
+
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
                     </div>
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
-                      {/* <div className="text-sm opacity-90">{p.alt}</div> */}
+
+                    {/* Content Overlay */}
+                    <div className="absolute inset-x-0 bottom-0 p-5 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                        <p className="text-sm font-medium mb-1">{p.alt}</p>
+                      </div>
+
                       <a
                         href={p.link}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="text-xs text-blue-200 hover:text-white"
+                        className="inline-flex items-center gap-1 text-xs text-blue-300 hover:text-blue-200 transition-colors"
                       >
-                        Image credit: {p.credit}
+                        <span>Image credit: {p.credit}</span>
+                        <ExternalLink className="h-3 w-3" />
                       </a>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             );
           })()}
 
-          <p className="text-xs text-gray-500 mt-6 text-center">
-            Images are for illustrative purposes and sourced from open resources like Pexels.
-          </p>
+          {/* Disclaimer */}
+          <div className="mt-10 text-center">
+            <p className="text-xs text-gray-500 bg-slate-800/50 backdrop-blur-sm inline-block px-4 py-2 rounded-full border border-slate-700">
+              Images are for illustrative purposes and sourced from open resources like Pexels.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -681,6 +713,18 @@ export default function Home() {
                     +91 9920360000{", "}
                     +91 9171110052{", "}
                     +91 9171110060
+                  </a>
+                </div>
+              </div>
+
+              <div className="group flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-white to-purple-50 hover:shadow-xl transition-all hover:-translate-y-1 border border-purple-100">
+                <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl p-3 shadow-lg group-hover:scale-110 transition-transform">
+                  <PhoneCall className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2 text-lg">Landline</h4>
+                  <a href="tel:07714064953" className="text-purple-600 hover:text-purple-700 font-semibold">
+                    0771-4033393
                   </a>
                 </div>
               </div>
